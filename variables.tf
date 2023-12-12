@@ -5,29 +5,28 @@ variable "tags" {
 }
 
 variable "app_name" {
-    type = "string"
+    type = string
     description = "Name of the application e.g. client-api"
 }
 
 variable "env" {
-    type = "string"
+    type = string
     description = "Environment prod|stage|test"
 }
 
 variable "vpc_id" {}
 
 variable "desired_container_count" {
-    type = "string"
+    type = string
 }
 
 variable "setup_alb" {
-    type = "bool"
+    type = bool
     default = true
 }
 
 variable "lb_name" {
-    type = "string"
-    default = "lb-${var.env}"
+    type = string
 }
 
 variable "security_group_ids" {
@@ -41,12 +40,12 @@ variable "subnet_ids" {
 }
 
 variable "container_port" {
-    type = "number"
+    type = number
     default = 80
 }
 
 variable "launch_type" {
-    type = "string"
+    type = string
     default = "FARGATE"
 }
 
@@ -57,16 +56,16 @@ variable "health_check_path" {
 }
 
 variable "namespace_id" {
-    type = "string"
+    type = string
 }
 
 variable "lb_priority" {
-    type = "number"
+    type = number
     default = 1
 }
 
 variable "dns_record_name" {
-    type = "string"
+    type = string
     description = "Fully qualified domain name for the record i.e. api.datacite.org"
 }
 
