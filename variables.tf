@@ -80,15 +80,15 @@ variable "use_fargate" {
 }
 
 variable "fargate_cpu" {
-    type        = string
+    type        = number
     description = "The number of cpu units used by the task. If the requires_compatibilities is FARGATE this field is required."
-    default     = "256"
+    default     = 256
 }
 
 variable "fargate_memory" {
-    type        = string
+    type        = number
     description = "The amount (in MiB) of memory used by the task. If the requires_compatibilities is FARGATE this field is required."
-    default     = "256"
+    default     = 256
 }
 
 variable "container_definitions" {
