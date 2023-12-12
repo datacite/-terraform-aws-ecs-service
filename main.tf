@@ -50,9 +50,9 @@ locals {
   # Whichever has the higher revision gets used as task definition
   # This is used to handle external management of task definitions
   # i.e. The tasks are not created and updated by terraform state
-  task_definition = "${aws_ecs_task_definition.main.family}:${max(
-    aws_ecs_task_definition.main.revision,
-    data.aws_ecs_task_definition.main.revision,
+  task_definition = "${aws_ecs_task_definition.this.family}:${max(
+    aws_ecs_task_definition.this.revision,
+    data.aws_ecs_task_definition.this.revision,
   )}"
 
 }
@@ -91,7 +91,7 @@ resource "aws_ecs_service" "this" {
 
   name            = "${var.app_name}-${var.env}"
   launch_type     = var.launch_type
-  cluster         = aws_ecs_cluster.this.id
+  cluster         = data.aws_ecs_cluster.this.id
   desired_count   = var.desired_container_count
 
   # See local definition above but here this is either going to be latest revision from external data
@@ -134,7 +134,7 @@ resource "aws_ecs_service" "ignore_task_definition" {
 
   name            = "${var.app_name}-${var.env}"
   launch_type     = var.launch_type
-  cluster         = aws_ecs_cluster.this.id
+  cluster         = data.aws_ecs_cluster.this.id
   desired_count   = var.desired_container_count
 
   # See local definition above but here this is either going to be latest revision from external data
@@ -214,12 +214,12 @@ resource "aws_lb_target_group" "this" {
 resource "aws_lb_listener_rule" "host" {
   count = var.setup_alb ? 1 : 0
 
-  listener_arn = aws_lb_listener.this.arn
+  listener_arn = data.aws_lb_listener.this.arn
   priority     = var.lb_priority
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.this.id
+    target_group_arn = aws_lb_target_group.this[0].id
   }
 
   condition {

@@ -1,15 +1,11 @@
 output "ecs_service_name" {
-  value = aws_ecs_service.this.name
-}
-
-output "aws_lb_listener_host_arn" {
-  value = aws_lb_listener.host.arn
+  value = try(aws_ecs_service.this[0].name, aws_ecs_service.ignore_task_definition[0].name, null)
 }
 
 output "aws_lb_target_group_arn" {
-  value = aws_lb_target_group.this.arn
+  value = aws_lb_target_group.this[0].arn
 }
 
 output "log_group_name" {
-  value = aws_cloudwatch_log_group.log_gthisoup.name
+  value = aws_cloudwatch_log_group.this.name
 }
