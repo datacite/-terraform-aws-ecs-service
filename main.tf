@@ -117,12 +117,12 @@ resource "aws_ecs_service" "this" {
     registry_arn = aws_service_discovery_service.this.arn
   }
 
-  tags = merge(
-      var.tags,
-      {
-        Name = "${var.app_name}-${var.env}"
-      },
-  )
+  # tags = merge(
+  #     var.tags,
+  #     {
+  #       Name = "${var.app_name}-${var.env}"
+  #     },
+  # )
 
 }
 
