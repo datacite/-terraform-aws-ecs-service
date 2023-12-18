@@ -108,7 +108,7 @@ resource "aws_ecs_service" "this" {
     for_each = var.setup_alb ? [1] : []
     content {
       target_group_arn = aws_lb_target_group.this[0].id
-      container_name   = var.app_name
+      container_name   = "${var.app_name}-${var.env}"
       container_port   = var.container_port
     }
   }
